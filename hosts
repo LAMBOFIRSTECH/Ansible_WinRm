@@ -2,7 +2,7 @@ windows10:
   hosts:
     LAMBOFT:
       ansible_host: 192.168.1.12 
-      # Commentaire facultatif pour documenter l'hôte
+  
   vars:
     ansible_shell_type: powershell
     ansible_user: ansibleWinRm
