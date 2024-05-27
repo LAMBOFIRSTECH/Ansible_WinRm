@@ -1,8 +1,13 @@
 ---
-- name: windows_server ping test
-  hosts: LAMBOFT
+- name: Test de connectivité des serveurs Windows via LAMBOFT
+  hosts: all
   become: false
   gather_facts: false
   tasks:
-    - name: Test de connection avec winrm
+    - name: Test de connexion avec winrm sur l'hyperviseur
       ansible.windows.win_ping:
+      when: "'windows10' in group_names"
+
+    - name: Test de connexion avec SSH sur les VMs
+      ping:
+      when: "'vms' in group_names"
