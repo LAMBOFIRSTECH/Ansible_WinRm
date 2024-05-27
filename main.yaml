@@ -3,11 +3,19 @@
   hosts: all
   become: false
   gather_facts: false
+  serial: 1
   tasks:
-    - name: Test de connexion avec winrm sur l'hyperviseur
-      ansible.windows.win_ping:
-      when: "'windows10' in group_names"
+    # - name: Test de connexion avec winrm sur l'hyperviseur
+    #   ansible.windows.win_ping:
+    #   when: "'windows10' in group_names"
 
     - name: Test de connexion avec SSH sur les VMs
       ping:
-      when: "'vms' in group_names"
+      when: "'vms-linux' in group_names"
+
+    - name: Création du fichier toto.json à la racine (equivalent to 0644)
+      ansible.builtin.file:
+        path: /home/lambo/titi.json
+        state: touch
+        mode: u=rw,g=r,o=r
+      when: "'vms-linux' in group_names"
