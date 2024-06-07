@@ -1,21 +1,13 @@
 ---
-- name: Test de connectivité des serveurs Windows via LAMBOFT
-  hosts: all
-  become: false
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vault.yml
   gather_facts: false
   serial: 1
-  tasks:
-    # - name: Test de connexion avec winrm sur l'hyperviseur
-    #   ansible.windows.win_ping:
-    #   when: "'windows10' in group_names"
-
-    - name: Test de connexion avec SSH sur les VMs
-      ping:
-      when: "'vms-linux' in group_names"
-
-    - name: Création du fichier toto.json à la racine (equivalent to 0644)
-      ansible.builtin.file:
-        path: /home/lambo/titi.json
-        state: touch
-        mode: u=rw,g=r,o=r
-      when: "'vms-linux' in group_names"
+  roles:
+    # - role: '/home/snow/Ansible_WinRm/VM_Config/Linux_roles/Test_role'
+    # - role: '/home/snow/Ansible_WinRm/VM_Config/windows_roles'
+    #- role: '/home/snow/Ansible_WinRm/VM_Config/Linux_roles/Nginx_role'
+    - role: '/home/snow/Ansible_WinRm/VM_Config/Linux_roles/Join_ad'

@@ -9,7 +9,7 @@ ansible-playbook -i Win_Config/config_win/hosts Win_Playbook/win_playbooks/ping.
 
 ansible_winrm_transport: ntlm 
     --> pour les comptes locaux et du domaine
-NTLM est le protocole d'authentification le plus simple à utiliser et est plus sécurisé que Basicl'authentification. S'il est exécuté dans un environnement de domaine, Kerberos doit être utilisé à la place de NTLM.
+NTLM est le protocole d'authentification le plus simple à utiliser et est plus sécurisé que l'authentification basique. S'il est exécuté dans un environnement de domaine, Kerberos doit être utilisé à la place de NTLM.
 
 Kerberos présente plusieurs avantages par rapport à l'utilisation de NTLM :
 
@@ -19,3 +19,11 @@ NTLM est plus lent à s'authentifier car il nécessite davantage d'allers-retour
 
 Contrairement à Kerberos, NTLM n'autorise pas la délégation d'informations d'identification.
 
+`ansible-playbook -i VM_Config/hosts main.yaml --forks 2 -vv` : la commande de lancement de mon playbook ansible
+
+`ssh -o ProxyCommand="ssh -W %h:%p ansibleWinRm@192.168.1.12" lambo@192.168.153.132`: cette commande permet de se connecterà un jump host puis à nos vm.
+`ansible-galaxy role init VM_Config/Linux_roles/<role-name>` : Création d'un role ansible
+Créer un lien symmbolique de du fichier hosts vers le dossier `VM_Config/Linux_roles/<role-name>/hosts`
+
+  #"{{ sudo_password }}"
+  configurer ssh en root pour déployer sur les serveurs distants

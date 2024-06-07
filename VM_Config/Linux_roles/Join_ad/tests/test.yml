@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - windows_roles
+    - VM_Config/Linux_roles/Join_ad
